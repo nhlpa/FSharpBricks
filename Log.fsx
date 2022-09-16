@@ -1,0 +1,15 @@
+module Log =
+    open System
+    open System.IO
+
+    let private logDir = "logs"
+
+    let private log kind fmt =
+        Printf.kprintf (fun s ->
+            let now = DateTime.Now
+            let msg = sprintf "[%s] [%s] %s" (now.ToString("s")) kind s
+            printfn "%s" msg) fmt
+
+    let fail fmt = log "Fail" fmt
+
+    let info fmt = log "Info" fmt
