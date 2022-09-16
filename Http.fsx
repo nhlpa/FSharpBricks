@@ -50,8 +50,10 @@ module Http =
                 StatusCode = Option.ofNullable e.StatusCode
                 Message = e.Message }
 
-    let responseBody (resp : HttpResponseMessage) =
-        resp.Content.ReadAsStringAsync().RunSynchronously
+    let responseBody (resp : Result<HttpResponseMessage, RequestFailure>) =
+        match resp with
+        | Ok x -> Ok (x.Content.ReadAsStringAsync().RunSynchronously)
+        | Error e -> Error e
 
     let get url headers =
         newRequest HttpMethod.Get url headers None

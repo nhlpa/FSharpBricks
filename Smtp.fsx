@@ -1,4 +1,4 @@
-module Mail =
+module Smtp =
     open System
     open System.Net.Mail
 
@@ -9,7 +9,7 @@ module Mail =
           Recipients : string list
           Attachments : Attachment list }
 
-    let sendSmtp (client : SmtpClient) (smtpMessage : SmtpMessage) =
+    let sendMessage (client : SmtpClient) (smtpMessage : SmtpMessage) =
         let msg = new MailMessage()
         msg.From <- smtpMessage.From
         msg.Subject <- smtpMessage.Subject
